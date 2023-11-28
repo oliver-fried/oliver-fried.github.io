@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Sharing</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+
+    <h1 class="mb-4">Code Sharing Platform</h1>
+
+    <div class="form-group">
+        <label for="codeInput">Write or paste your code below:</label>
+        <textarea class="form-control" id="codeInput" rows="8"></textarea>
+    </div>
+
+    <button class="btn btn-primary mb-3" onclick="postCode()">Post Code</button>
+
+    <div id="postedCode"></div>
+
+    <!-- Add Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        function postCode() {
+            var code = document.getElementById('codeInput').value;
+            var postedCodeDiv = document.getElementById('postedCode');
+            postedCodeDiv.innerHTML = "<h2 class='mt-4'>Posted Code:</h2><pre class='bg-light p-3'>" + code + "</pre>";
+        }
+    </script>
+</body>
+</html>
