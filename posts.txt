@@ -1,0 +1,3 @@
+Traducción de tablas de BC ingles/español
+Este archivo contiene las traducciones de todas las tablas de BC del inglés al español. Se basa en el archivo de traducción oficial.
+file: BC_Tablas_ingles-español.xlsx
