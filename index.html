@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Sharing</title>
+    <title>My Blog</title>
     <!-- Add Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
 </head>
-<body class="container mt-5">
+<body>
 
-    <h1 class="mb-4">Code Sharing Platform</h1>
+    <div class="container">
+        <h1 class="mt-4 mb-4">My Blog</h1>
 
-    <div class="form-group">
-        <label for="codeInput">Write or paste your code below:</label>
-        <textarea class="form-control" id="codeInput" rows="8"></textarea>
+        <!-- Blog Posts -->
+        <div id="blogPosts"></div>
     </div>
-
-    <button class="btn btn-primary mb-3" onclick="postCode()">Post Code</button>
-
-    <div id="postedCode"></div>
 
     <!-- Add Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -26,11 +28,38 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
-        function postCode() {
-            var code = document.getElementById('codeInput').value;
-            var postedCodeDiv = document.getElementById('postedCode');
-            postedCodeDiv.innerHTML = "<h2 class='mt-4'>Posted Code:</h2><pre class='bg-light p-3'>" + code + "</pre>";
-        }
+        // Fetch and display blog posts from "posts.txt"
+        fetch('posts.txt')
+            .then(response => response.text())
+            .then(data => {
+                const blogPostsDiv = document.getElementById('blogPosts');
+                const posts = data.split('\n\n');
+                posts.forEach(post => {
+                    const lines = post.split('\n');
+                    const title = lines[0];
+                    const content = lines.slice(1).join('\n');
+
+                    // Extract file path if exists
+                    let filePath;
+                    const fileTagIndex = lines.findIndex(line => line.startsWith('file:'));
+                    if (fileTagIndex !== -1) {
+                        filePath = lines[fileTagIndex].substring(6).trim();
+                        lines.splice(fileTagIndex, 1); // Remove the line with the file tag
+                    }
+
+                    const postDiv = document.createElement('div');
+                    postDiv.innerHTML = `
+                        <div class='card mt-4'>
+                            <div class='card-body'>
+                                <h2 class='card-title'>${title}</h2>
+                                <p class='card-text'>${content}</p>
+                                ${filePath ? `<a href="${filePath}" download>Download Attachment</a>` : ''}
+                            </div>
+                        </div>`;
+                    blogPostsDiv.appendChild(postDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching blog posts:', error));
     </script>
 </body>
 </html>
