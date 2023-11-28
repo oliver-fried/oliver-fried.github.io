@@ -8,15 +8,56 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card {
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 0.25rem;
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 11px rgba(33,33,33,.2);
+        }
+
+        .card-title {
+            color: #007bff;
+        }
+
+        .card-text {
+            color: #343a40;
+        }
+
+        a {
+            color: #007bff;
+        }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 class="mt-4 mb-4">My Blog</h1>
+        <h1>My Blog</h1>
 
         <!-- Blog Posts -->
         <div id="blogPosts"></div>
@@ -48,13 +89,12 @@
                     }
 
                     const postDiv = document.createElement('div');
+                    postDiv.className = 'card';
                     postDiv.innerHTML = `
-                        <div class='card mt-4'>
-                            <div class='card-body'>
-                                <h2 class='card-title'>${title}</h2>
-                                <p class='card-text'>${content}</p>
-                                ${filePath ? `<a href="${filePath}" download>Download Attachment</a>` : ''}
-                            </div>
+                        <div class='card-body'>
+                            <h2 class='card-title'>${title}</h2>
+                            <p class='card-text'>${content}</p>
+                            ${filePath ? `<a href="${filePath}" download>Download Attachment</a>` : ''}
                         </div>`;
                     blogPostsDiv.appendChild(postDiv);
                 });
